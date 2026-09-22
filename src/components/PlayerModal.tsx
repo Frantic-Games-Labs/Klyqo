@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { Bookmark, Check, ExternalLink, Maximize, Minimize, RotateCcw, X, LoaderCircle, Keyboard, Radio, ArrowUpRight } from "lucide-react";
+import { Bookmark, Check, ExternalLink, Maximize, Minimize, RotateCcw, X, LoaderCircle, Keyboard, Radio, ArrowUpRight, ArrowLeft } from "lucide-react";
 import type { Game } from "@/db/schema";
 import { useArcade } from "./ArcadeProvider";
 import ReleaseSignup from "./ReleaseSignup";
@@ -72,10 +72,17 @@ export default function PlayerModal({ game, onClose }: { game: Game; onClose: ()
   const restart = () => { setLoaded(false); setTimedOut(false); setVersion((v) => v + 1); };
   return <dialog ref={dialog} className={`player-dialog ${!live ? "coming-dialog" : ""} ${expanded ? "expanded" : ""}`} aria-labelledby="player-title" onCancel={(e) => { e.preventDefault(); close(); }} onClick={(e) => { if (e.target === dialog.current) close(); }}>
     <div ref={shell} className="player-shell">
-      <div className="player-header"><div className="player-brand"><BrandMark /><span className="player-header-divider" /><div><h2 id="player-title">{game.title}</h2><span className="mono">{live ? "NOW PLAYING / " : "THE NEXT DROP / "}{game.category.toUpperCase()}</span></div></div>
+      <div className="player-header">
+        <div className="player-brand">
+          <button className="icon-button close-button" style={{ marginLeft: 0, padding: '0 12px', borderRadius: '6px', fontSize: '11px', fontFamily: 'var(--mono)', gap: '6px', height: '32px' }} onClick={close} aria-label="Back" title="Back to Games"><ArrowLeft size={16} /> BACK</button>
+          <span className="player-header-divider" />
+          <BrandMark />
+          <span className="player-header-divider" />
+          <div><h2 id="player-title">{game.title}</h2><span className="mono">{live ? "NOW PLAYING / " : "THE NEXT DROP / "}{game.category.toUpperCase()}</span></div>
+        </div>
         <div className="player-actions"><button className={`icon-button ${isSaved ? "saved" : ""}`} onClick={() => toggleSaved(game.slug)} aria-label={isSaved ? "Remove from library" : "Save to library"} title={isSaved ? "Saved to library" : "Save to library"}><Bookmark size={18} fill={isSaved ? "currentColor" : "none"} /></button>
           {live && <><button className="icon-button" onClick={restart} title="Restart game" aria-label="Restart game"><RotateCcw size={18} /></button><a className="icon-button" href={src} target="_blank" rel="noopener noreferrer" aria-label="Open game in new tab" title="Open in a new tab"><ExternalLink size={18} /></a><button className="icon-button" onClick={fullscreen} aria-label={expanded ? "Exit fullscreen" : "Enter fullscreen"} title="Fullscreen">{expanded ? <Minimize size={19} /> : <Maximize size={19} />}</button></>}
-          <button className="icon-button close-button" onClick={close} aria-label="Close player" title="Close · Esc"><X size={21} /></button></div>
+        </div>
       </div>
       {live ? <><div className="player-surface">
         <iframe key={version} ref={frame} className="game-frame" src={src} title={`Play ${game.title}`} onLoad={() => { setLoaded(true); frame.current?.focus(); }} allow="autoplay; fullscreen; gamepad" sandbox={game.source === "local" ? "allow-scripts allow-same-origin allow-pointer-lock" : "allow-scripts allow-pointer-lock"} allowFullScreen />
