@@ -13,7 +13,7 @@ export default function GameCard({ game }: { game: Game; big?: boolean }) {
   const isSaved = saved.includes(game.slug);
   const classic = game.slug === "snake" || game.slug === "tetris";
   return <article className={`game-card ${live ? "game-live" : "game-upcoming"}`}>
-    <Link href={live ? (game.source === "local" ? `/games/${game.slug}/index.html` : game.url) : `/play/${game.slug}`} target={live ? "_blank" : undefined} className="game-card-link" aria-label={live ? `Play ${game.title}` : `Explore ${game.title}, coming soon`} onClick={(e) => { if (!live) { if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return; e.preventDefault(); openGame(game); } }}>
+    <Link href={live ? (game.source === "local" ? `/games/${game.slug}/index.html` : (game.url || `/play/${game.slug}`)) : `/play/${game.slug}`} target={live ? "_blank" : undefined} className="game-card-link" aria-label={live ? `Play ${game.title}` : `Explore ${game.title}, coming soon`} onClick={(e) => { if (!live) { if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return; e.preventDefault(); openGame(game); } }}>
       <div className={`game-cover ${classic ? `cover-${game.slug}` : ""}`}>
         {game.coverUrl ? <Image src={game.coverUrl} alt={`${game.title} ${live ? "game" : "concept"} artwork`} fill sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" className="cover-image" unoptimized={game.coverUrl.endsWith(".svg")} /> : <div className="cover-fallback" style={{ background: game.accent }}><span>{game.title.slice(0, 1)}</span></div>}
         <div className="card-badges"><StatusPill status={game.status} />{classic && <span className="demo-label mono">THE CLASSICS</span>}</div>
