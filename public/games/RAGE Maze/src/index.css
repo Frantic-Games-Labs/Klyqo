@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Rubik:wght@400;600;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --ink: #0b0a14;
+  --ember: #ff8c3a;
+  --gold: #ffd166;
+  --blood: #ff3b5c;
+  --moss: #7be495;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink);
+  font-family: 'Rubik', system-ui, sans-serif;
+  color: #f4efe6;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.font-display {
+  font-family: 'Bangers', 'Rubik', system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+canvas {
+  display: block;
+  outline: none;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6) rotate(-4deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(1deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes slamIn {
+  0% { transform: translateY(-40px) scale(1.3); opacity: 0; }
+  50% { transform: translateY(6px) scale(0.98); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes toastIn {
+  0% { transform: translateY(20px) scale(0.9); opacity: 0; }
+  15% { transform: translateY(0) scale(1); opacity: 1; }
+  85% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-10px) scale(0.95); opacity: 0; }
+}
+@keyframes redFlash {
+  0% { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+@keyframes wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+.anim-pop { animation: popIn 0.45s cubic-bezier(.2,1.4,.4,1) both; }
+.anim-slam { animation: slamIn 0.35s cubic-bezier(.2,1.2,.4,1) both; }
+.anim-toast { animation: toastIn 2.4s ease both; }
+.anim-flash { animation: redFlash 0.6s ease-out both; }
+.anim-wobble { animation: wobble 2.4s ease-in-out infinite; }
+.anim-floaty { animation: floaty 3s ease-in-out infinite; }
+.anim-heart { animation: heartPop 0.4s ease both; }
+
+.text-outline {
+  text-shadow:
+    3px 3px 0 #0b0a14,
+    -2px -2px 0 #0b0a14,
+    2px -2px 0 #0b0a14,
+    -2px 2px 0 #0b0a14,
+    0 6px 18px rgba(0,0,0,.6);
+}
+
+.panel {
+  background: linear-gradient(160deg, rgba(30,26,46,.94), rgba(12,10,22,.96));
+  border: 2px solid rgba(255,209,102,.35);
+  box-shadow: 0 0 0 4px rgba(11,10,20,.8), 0 24px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.btn {
+  font-family: 'Bangers', 'Rubik', sans-serif;
+  letter-spacing: 0.08em;
+  font-size: 1.4rem;
+  padding: 0.65rem 1.6rem;
+  border-radius: 0.75rem;
+  border: 3px solid #0b0a14;
+  box-shadow: 0 6px 0 #0b0a14, 0 10px 24px rgba(0,0,0,.5);
+  transition: transform .08s ease, box-shadow .08s ease, filter .15s ease;
+  cursor: pointer;
+  color: #0b0a14;
+}
+.btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 0 #0b0a14, 0 14px 28px rgba(0,0,0,.5); }
+.btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #0b0a14, 0 6px 12px rgba(0,0,0,.5); }
+.btn-primary { background: linear-gradient(180deg, #ffd166, #ff8c3a); }
+.btn-danger { background: linear-gradient(180deg, #ff6b81, #ff3b5c); color: #fff; }
+.btn-ghost { background: rgba(255,255,255,.08); color: #f4efe6; border-color: rgba(255,255,255,.2); box-shadow: 0 4px 0 rgba(0,0,0,.6); }
+
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
+}
+.death-vignette {
+  background: radial-gradient(ellipse at center, rgba(255,40,70,.15) 30%, rgba(120,0,20,.75) 100%);
+}
+.joy-base {
+  background: radial-gradient(circle, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  border: 2px solid rgba(255,255,255,.25);
+}
+.joy-knob {
+  background: radial-gradient(circle at 35% 35%, #ffd166, #ff8c3a);
+  box-shadow: 0 4px 12px rgba(0,0,0,.6);
+}
