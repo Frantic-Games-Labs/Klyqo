@@ -133,19 +133,18 @@ export default function PlayerModal({ game, onClose }: { game: Game; onClose: ()
 
             {/* Game surface — takes all remaining space, clips game to its own container */}
             <div className="player-surface">
-              <div className="game-frame-wrapper">
-                <iframe
-                  key={version}
-                  ref={frame}
-                  className="game-frame"
-                  src={src}
-                  title={`Play ${game.title}`}
-                  onLoad={() => { setLoaded(true); frame.current?.focus(); }}
-                  allow="autoplay; fullscreen; gamepad"
-                  sandbox={game.source === "local" ? "allow-scripts allow-same-origin allow-pointer-lock" : "allow-scripts allow-pointer-lock"}
-                  allowFullScreen
-                />
-              </div>
+              <iframe
+                key={version}
+                ref={frame}
+                className="game-frame"
+                src={src}
+                title={`Play ${game.title}`}
+                onLoad={() => { setLoaded(true); frame.current?.focus(); }}
+                allow="autoplay; fullscreen; gamepad"
+                sandbox={game.source === "local" ? "allow-scripts allow-same-origin allow-pointer-lock" : "allow-scripts allow-pointer-lock"}
+                allowFullScreen
+                scrolling="no"
+              />
               {!loaded && (
                 <div className="game-loading">
                   <BrandMark />
